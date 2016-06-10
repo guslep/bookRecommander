@@ -53,7 +53,7 @@ public class RatingRepository extends JdbcDaoSupport {
     }
 
     public List<BookRating> getKfoldRating(){
-        String sql="select  rating.* from( SELECT \"User-ID\", count(\"Book-Rating\") as nbr FROM public.\"BX-Book-Ratings\" where \"Book-Rating\"!=100 group by \"User-ID\" order by nbr desc )as foo , public.\"BX-Book-Ratings\" as rating where  foo.\"User-ID\" =rating.\"User-ID\" and foo.nbr>19\n" ;
+        String sql="select  rating.* from( SELECT \"User-ID\", count(\"Book-Rating\") as nbr FROM public.\"BX-Book-Ratings\" where \"Book-Rating\"!=0 group by \"User-ID\" order by nbr desc )as foo , public.\"BX-Book-Ratings\" as rating where  foo.\"User-ID\" =rating.\"User-ID\" and foo.nbr>19\n" ;
                 List<BookRating> rating = getJdbcTemplate().query(sql, new RatingRowMapper());
     return rating;
     }

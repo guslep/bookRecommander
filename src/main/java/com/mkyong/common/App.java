@@ -5,6 +5,7 @@ import com.mkyong.Model.BookRating;
 import com.mkyong.Model.Recommandation;
 import com.mkyong.Model.User;
 import com.mkyong.ModelGenerator.GenerateUserTasteProfile;
+import com.mkyong.ModelGenerator.PrecisionAnalyser;
 import com.mkyong.customer.Recommandation.TagBasedRecommandation;
 import service.BookService;
 import service.RatingService;
@@ -24,8 +25,10 @@ public class App
         Collection<Book> book  = BookService.getInstance().getBookrs();
         List<BookRating> rating  = RatingService.getInstance().getRatings();
         tets.size();
-        generateUserProfiles();
-        generateTagBasedRecommandation();
+        PrecisionAnalyser.calculatePrecision();
+
+        //generateUserProfiles();
+       // generateTagBasedRecommandation();
 
 
 

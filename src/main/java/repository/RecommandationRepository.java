@@ -38,7 +38,7 @@ public void clearTable(){
     public void insertBatch(final List<Recommandation> recommandations){
         //clearTable();
         String sql = "INSERT INTO \"Recommandation\" " +
-                "(\"User-ID\", \"ISBN\",\"Rating\",\"Position\")) VALUES (?,?,?,?)";
+                "(\"User-ID\", \"ISBN\",\"Rating\",\"Position\") VALUES (?,?,?,?)";
 
         getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 

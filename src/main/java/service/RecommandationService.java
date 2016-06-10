@@ -37,7 +37,7 @@ public class RecommandationService {
         }
         return recommandations.values() ;
     }
-    public    Map<String,Recommandation> getTasteMap(){
+    public    Map<String,Recommandation> getRecommandationeMap(){
         if(recommandations ==null){
             generateMap(recommandationRepository.getAllRecommandation());
         }

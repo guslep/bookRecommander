@@ -1,6 +1,7 @@
 package com.mkyong.Model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -11,6 +12,7 @@ public class EnrichedUser {
     private String location;
     private int age;
     private Map<String,BookRating> associatedRating;
+    double averageRating;
 
     public EnrichedUser() {
         associatedRating=new HashMap<String, BookRating>();
@@ -21,7 +23,7 @@ public class EnrichedUser {
         this.userId = userId;
         this.location = location;
         this.age = age;
-        new HashMap<String, BookRating>();
+        associatedRating=new HashMap<String, BookRating>();
     }
 
     public int getUserId() {
@@ -54,5 +56,26 @@ public class EnrichedUser {
 
     public void setAssociatedRating(Map<String, BookRating> associatedRating) {
         this.associatedRating = associatedRating;
+    }
+
+    public void calculateAverageRating(){
+
+        Iterator<BookRating> iter=associatedRating.values().iterator();
+        double avg=0.0;
+        int nbr=0;
+        while (iter.hasNext()){
+            BookRating rating=iter.next();
+            if(rating.getRating()>0){
+                avg+=rating.getRating();
+                nbr++;
+            }
+        }
+
+
+        averageRating= avg/nbr;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
     }
 }

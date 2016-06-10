@@ -17,14 +17,17 @@ public class TagBasedRecommandation {
 
 
     public  static  List<Recommandation> generateRecommandation(){
-return generateRecommandation(UserTasteService.getInstance().getTaste());
+return generateRecommandation(UserTasteService.getInstance().getTaste(),true);
     }
     public  static  List<Recommandation> generateRecommandationWithList( Collection<UserTasteProfile>tastes){
-        return generateRecommandation(tastes);
+        return generateRecommandation(tastes,false);
     }
 
-    private  static  List<Recommandation> generateRecommandation( Collection<UserTasteProfile>tastes){
-        RecommandationService.getInstance().deleteRecommandation();
+    private  static  List<Recommandation> generateRecommandation( Collection<UserTasteProfile>tastes,boolean save){
+        if(save){
+            RecommandationService.getInstance().deleteRecommandation();
+        }
+
         int index =0;
         System.out.println(new Date());
         List<Recommandation> userRecommandation= new ArrayList<Recommandation>();
@@ -34,8 +37,10 @@ return generateRecommandation(UserTasteService.getInstance().getTaste());
         while (iter.hasNext()){
             index++;
             if(index%100==0){
+                    if(save){
+                        RecommandationService.getInstance().insertTasteProfiles(userRecommandation.subList(index-100,index));
+                    }
 
-                RecommandationService.getInstance().insertTasteProfiles(userRecommandation.subList(index-100,index));
                 System.out.println("parsing user "+index+"out of "+tastes.size());
             }
 
@@ -53,15 +58,14 @@ return generateRecommandation(UserTasteService.getInstance().getTaste());
             }
             recommandation.sort(new Comparator<Recommandation>() {
                 public int compare(Recommandation o1, Recommandation o2) {
-                   if(o1.getRecommandationRating()<o2.getRecommandationRating()){
+                    if (o1.getRecommandationRating() < o2.getRecommandationRating()) {
 
-                       return 1;
-                   }else if(o1.getRecommandationRating()==o2.getRecommandationRating()){
-                       return 0;
-                   }
-                   else{
-                       return -1;
-                   }
+                        return 1;
+                    } else if (o1.getRecommandationRating() == o2.getRecommandationRating()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
 
                 }
             });

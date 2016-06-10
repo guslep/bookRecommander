@@ -78,7 +78,7 @@ public class GenerateUserTasteProfile {
                         if(nbOver0<=5){
                             enjoyment+=nbOver0*0.03;
                         }else{
-                            enjoyment+=0.15;
+                            enjoyment+=0.5;
                         }
 
                         if (taste.get(tagId) == null) {

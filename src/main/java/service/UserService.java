@@ -75,7 +75,7 @@ public class UserService {
         return userEnrichedMap;
     }
 
-    public EnrichedUser getEnrichedUser(String userID){
+    public EnrichedUser getEnrichedUser(int userID){
         if(userMap == null){
             generateMap(userRepository.getAllBook());
         }
@@ -113,6 +113,14 @@ public class UserService {
         List<BookRating> ratings=RatingService.getInstance().getRatings();
         for(BookRating bookRating:ratings){
             userEnrichedMap.get(bookRating.getUserId()).getAssociatedRating().put(bookRating.getISBN() + bookRating.getUserId(), bookRating);
+        }
+
+        Iterator<EnrichedUser> enrichedIter=userEnrichedMap.values().iterator();
+
+        while (enrichedIter.hasNext()){
+            EnrichedUser user=enrichedIter.next();
+            user.calculateAverageRating();
+
         }
 
 

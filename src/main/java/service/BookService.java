@@ -61,7 +61,7 @@ public class BookService {
     }
 
 
-    public  void generateEnrichedBook(){
+    public  Map<String, EnrichedBook> generateEnrichedBook(){
         enrichedBook  = new HashMap<String, EnrichedBook>();
       Iterator<Book> iter=bookMap.values().iterator();
         while (iter.hasNext()){
@@ -82,6 +82,6 @@ public class BookService {
             enrichedBook.get(bookRating.getISBN()).getAssociatedRtings().put(bookRating.getISBN()+bookRating.getUserId(),bookRating);
         }
 
-
+            return enrichedBook;
     }
 }
